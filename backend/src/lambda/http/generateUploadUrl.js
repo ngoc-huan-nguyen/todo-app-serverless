@@ -10,11 +10,11 @@ export const handler = middy()
   }))
   .handler(async (event) => {
     const todoId = event.pathParameters.todoId;
-    let rs = await getSignedUrl(todoId)
+    let data = await getSignedUrl(todoId)
     return {
       statusCode: 200,
       body: JSON.stringify({
-        rs
+        data
       }),
     };
   })

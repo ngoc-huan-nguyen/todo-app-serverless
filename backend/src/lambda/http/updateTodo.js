@@ -12,12 +12,12 @@ export const handler = middy()
     const body = JSON.parse(event.body);
     const todoId = event.pathParameters.todoId;
 
-    let rs = await update(body, userId, todoId);
+    await update(body, userId, todoId);
 
     return {
       statusCode: 200,
       body: JSON.stringify({
-        rs
+        data: 'ok'
       }),
     };
   })

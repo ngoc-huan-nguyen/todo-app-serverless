@@ -9,13 +9,13 @@ export const handler = middy()
     credentials: true,
   }))
   .handler(async (event) => {
-  const newTodo = JSON.parse(event.body);
+  const body = JSON.parse(event.body);
 
-  const rs = await create(newTodo);
+  const data = await create(body);
   return {
     statusCode: 200,
     body: JSON.stringify({
-      rs
+      data
     }),
   };
 });

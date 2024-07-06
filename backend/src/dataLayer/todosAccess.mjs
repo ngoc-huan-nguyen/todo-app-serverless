@@ -7,7 +7,7 @@ const todoIndex = process.env.TODOS_CREATED_AT_INDEX;
 
 export async function getListTodoByUserId(userId) {
     return await dynamoDbDocument.query({
-        TableName: groupsTable,
+        TableName: todoTable,
         IndexName: todoIndex,
         KeyConditionExpression: 'userId = :userId',
         ExpressionAttributeValues: {

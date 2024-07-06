@@ -10,12 +10,12 @@ export const handler = middy()
   }))
   .handler(async (event) => {
     const userId = getUserId(event);
-    const rs = await getListTodoByUserId(userId);
+    const data = await getListTodoByUserId(userId);
     
     return {
       statusCode: 200,
       body: JSON.stringify({
-        rs
+        data
       }),
     };
   })
