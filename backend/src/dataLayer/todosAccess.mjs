@@ -1,7 +1,10 @@
 import { DynamoDB } from '@aws-sdk/client-dynamodb';
 import { DynamoDBDocument, UpdateCommand } from '@aws-sdk/lib-dynamodb';
+import AWSXRay from 'aws-xray-sdk-core';
 
-const dynamoDbDocument = DynamoDBDocument.from(new DynamoDB())
+const dynamoDb = AWSXRay.captureAWSv3Client(new DynamoDB())
+const dynamoDbDocument = DynamoDBDocument.from(dynamoDb);
+
 const todoTable = process.env.TODOS_TABLE;
 const todoIndex = process.env.TODOS_CREATED_AT_INDEX;
 
