@@ -22,6 +22,7 @@ provider:
             - dynamodb:PutItem
             - dynamodb:GetItem
             - dynamodb:DeleteItem
+            - dynamodb:UpdateItem
           Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}
         - Effect: Allow
           Action:
@@ -71,7 +72,7 @@ functions:
       - http:
           method: delete
           path: todos/{todoId}
-
+          cors: true
   GenerateUploadUrl:
     handler: src/lambda/http/generateUploadUrl.handler
     events:

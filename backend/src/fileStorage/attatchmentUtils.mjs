@@ -4,12 +4,10 @@ const s3Client = new S3Client();
 const bucketName = process.env.IMAGE_S3_BUCKET;
 const urlExpiration = process.env.URL_EXPIRATION;
 
-export async function getSignedUrl(todoId) {
+export async function getUploadUrl(todoId) {
   const command = new PutObjectCommand({
-    Bucket: bucket,
-    Key: {
-      todoId
-    }
+    Bucket: bucketName,
+    Key: todoId
   });
 
   return await getSignedUrl(s3Client, command, {
