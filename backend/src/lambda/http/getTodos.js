@@ -9,7 +9,7 @@ export const handler = middy()
     credentials: true
   }))
   .handler(async (event) => {
-    const items = await getList(event, logger);
+    const items = await getList(event);
     return {
       statusCode: 200,
       body: JSON.stringify({

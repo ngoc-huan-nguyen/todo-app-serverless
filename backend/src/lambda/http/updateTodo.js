@@ -9,7 +9,7 @@ export const handler = middy()
     credentials: true
   }))
   .handler(async (event) => {
-    let item = await update(event, logger);
+    let item = await update(event);
     return {
       statusCode: 200,
       body: JSON.stringify({
