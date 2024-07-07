@@ -1,5 +1,6 @@
 import { DynamoDB } from '@aws-sdk/client-dynamodb';
 import { DynamoDBDocument, UpdateCommand } from '@aws-sdk/lib-dynamodb';
+
 const dynamoDbDocument = DynamoDBDocument.from(new DynamoDB())
 const todoTable = process.env.TODOS_TABLE;
 const todoIndex = process.env.TODOS_CREATED_AT_INDEX;
@@ -28,7 +29,7 @@ export async function updateTodo(data, key) {
         ":name": data.name,
         ":dueDate": data.dueDate
     }
-    if (data.attachmentUrl) {
+    if (data.hasOwnProperty('attachmentUrl')) {
         updateExpression += `, attachmentUrl = :attachmentUrl`;
         expressionAtt[":attachmentUrl"]= data.attachmentUrl;
     }
@@ -53,7 +54,7 @@ export async function updateTodo(data, key) {
 }
 
 export async function deleteTodo(key) {
-    await dynamoDbDocument.delete({
+    return await dynamoDbDocument.delete({
         TableName: todoTable,
         Key: key
     });
