@@ -9,11 +9,21 @@ export const handler = middy()
     credentials: true
   }))
   .handler(async (event) => {
-    const items = await getList(event);
-    return {
-      statusCode: 200,
-      body: JSON.stringify({
-        items
-      }),
-    };
-  })
+    try {
+      const items = await getList(event);
+      return {
+        statusCode: 200,
+        body: JSON.stringify({
+          items
+        }),
+      };
+    } catch (error) {
+      return {
+        statusCode: 500,
+        body: JSON.stringify({
+          error
+        }),
+      };
+    }
+  }
+);

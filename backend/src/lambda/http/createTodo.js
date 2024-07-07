@@ -9,12 +9,32 @@ export const handler = middy()
     credentials: true,
   }))
   .handler(async (event) => {
-  const item = await create(event);
-  return {
-    statusCode: 200,
-    body: JSON.stringify({
-      item
-    }),
-  };
+    try {
+      const item = await create(event);
+      if (!item) {
+        return {
+          statusCode: 400,
+          headers: {
+            'Access-Control-Allow-Origin': '*'
+          },
+          body: JSON.stringify({
+            error: 'Can not create item'
+          })
+        }
+      }
+      return {
+        statusCode: 201,
+        body: JSON.stringify({
+          item
+        }),
+      };
+    } catch (error) {
+      return {
+        statusCode: 500,
+        body: JSON.stringify({
+          error
+        }),
+      };
+    }
 });
 

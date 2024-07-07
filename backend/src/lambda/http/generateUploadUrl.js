@@ -9,11 +9,21 @@ export const handler = middy()
     credentials: true,
   }))
   .handler(async (event) => {
-    const uploadUrl = await updateImageUrl(event);
-    return {
-      statusCode: 200,
-      body: JSON.stringify({
-        uploadUrl
-      }),
-    };
-  })
+    try {
+      const uploadUrl = await updateImageUrl(event);
+      return {
+        statusCode: 200,
+        body: JSON.stringify({
+          uploadUrl
+        }),
+      };
+    } catch (error) {
+      return {
+        statusCode: 500,
+        body: JSON.stringify({
+          error
+        }),
+      };
+    }
+  }
+);
